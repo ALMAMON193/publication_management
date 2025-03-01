@@ -32,19 +32,12 @@ class DefaultMembershipArticleController extends Controller
         $validatedData = $request->validate([
             'title' => 'nullable|string',
             'content' => 'nullable|string',
-            'video' => 'nullable|file|mimes:mp4,mov,wmv,avi|max:204800',
         ]);
 
         try {
             // Add static data for page and section
             $validatedData['page'] = Page::MEMBERSHIP->value;
             $validatedData['section'] = Section::MEMBERSHIP_DEFAULT_ARTICLE->value;
-
-            // Handle video file upload if present
-            if ($request->hasFile('video')) {
-                $randomString = Str::random(10); // Generate a random string for the video file name
-                $validatedData['video'] = Helper::fileUpload($request->file('video'), 'cms/membership/article/video', $randomString); // Upload the video and get the file path
-            }
 
             // Check if the CMS article exists and update or create it
             CMS::updateOrCreate(

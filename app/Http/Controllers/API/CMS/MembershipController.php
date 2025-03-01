@@ -19,8 +19,12 @@ class MembershipController extends Controller
         try {
             $data = CMS::where('page', Page::MEMBERSHIP)
                 ->where('section', Section::MEMBERSHIP_CONTENT)
-                ->select('id', 'title', 'content')
+                ->select('id', 'title')
                 ->get();
+            $data = $data->map(function ($item) {
+                $item->content = strip_tags($item->content);
+                return $item;
+            });
             return Helper::jsonResponse(true, 'Membership Data Fetch Successfully', 200, $data);
         } catch (Exception $e) {
             Log::error($e->getMessage());
