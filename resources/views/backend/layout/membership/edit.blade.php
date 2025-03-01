@@ -56,42 +56,59 @@
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
-
-                                    <!-- duration-->
-                                    <div class="form-group">
-                                        <label for="duration" class="form-label">Duration <span
-                                                class="text-danger">*</span></label>
-                                        <input type="text" class="form-control @error('duration') is-invalid @enderror"
-                                            name="duration" id="duration"
-                                            value="{{ old('duration') ?? ($membership->duration ?? '') }}"
-                                            placeholder="Enter duration in days...">
-                                        @error('duration')
-                                            <span class="text-danger">{{ $message }}</span>
-                                        @enderror
-                                        <small class="form-text text-muted">Please specify the duration in the format:
-                                            number followed by time unit (e.g., 30 days, 6 months, 1 year).</small>
-                                    </div>
-                                    <!-- Duration Type-->
+                                    <!--Duration Type-->
                                     <div class="form-group">
                                         <label for="duration_type" class="form-label">Duration Type <span
                                                 class="text-danger">*</span></label>
                                         <select class="form-control @error('duration_type') is-invalid @enderror"
-                                            id="duration_type" name="duration_type">
+                                            id="duration_type" name="duration_type" onchange="calculateDurationInDays()">
                                             <option value="">Select duration type</option>
-                                            <option value="weeks"
-                                                {{ $membership->duration_type == 'weeks' ? 'selected' : '' }}>Weeks
+                                            <option value="weeks" @if (old('duration_type', $membership->duration_type) == 'weeks') selected @endif>Weeks
                                             </option>
-                                            <option value="months"
-                                                {{ $membership->duration_type == 'months' ? 'selected' : '' }}>Months
+                                            <option value="months" @if (old('duration_type', $membership->duration_type) == 'months') selected @endif>Months
                                             </option>
-                                            <option value="years"
-                                                {{ $membership->duration_type == 'years' ? 'selected' : '' }}>Years
+                                            <option value="years" @if (old('duration_type', $membership->duration_type) == 'years') selected @endif>Years
                                             </option>
                                         </select>
                                         @error('duration_type')
                                             <span class="text-danger">{{ $message }}</span>
                                         @enderror
                                     </div>
+
+                                    <!--duration-->
+                                    <div class="form-group">
+                                        <label for="duration" class="form-label">Duration (in days) <span
+                                                class="text-danger">*</span></label>
+                                        <input type="number" class="form-control @error('duration') is-invalid @enderror"
+                                            name="duration" id="duration"
+                                            value="{{ old('duration', $membership->duration ?? 0) }}"
+                                            placeholder="Enter duration in days...">
+                                        @error('duration')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+
+                                    <script>
+                                        function calculateDurationInDays() {
+                                            let duration = document.getElementById('duration');
+                                            let durationType = document.getElementById('duration_type').value;
+                                            switch (durationType) {
+                                                case 'weeks':
+                                                    duration.value = 7;
+                                                    break;
+                                                case 'months':
+                                                    duration.value = 30;
+                                                    break;
+                                                case 'years':
+                                                    duration.value = 365;
+                                                    break;
+                                                default:
+                                                    duration.value = 0;
+                                                    break;
+                                            }
+                                        }
+                                    </script>
+
                                     <div class="mt-2">
                                         <button type="submit" class="btn btn-primary me-2">Update</button>
                                         <button type="reset" class="btn btn-outline-secondary"

@@ -9,6 +9,7 @@
             /* Green */
             color: white !important;
         }
+
         .custom-cancel-button {
             background-color: #f72213 !important;
             /* Red */
@@ -37,8 +38,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div style="display: flex;justify-content: space-between;align-items: center;">
-                            <h4 class="card-title">Membership  List</h4>
-                            <a href="{{ route('admin.membership.create') }}" class="btn btn-primary">Add Type</a>
+                            <h4 class="card-title">Membership List</h4>
+                            <a href="{{ route('admin.membership.create') }}" class="btn btn-primary">Add Membership</a>
                         </div>
                         <div class="table-responsive mt-4 p-4">
                             <table class="table table-hover" id="data-table">
@@ -47,7 +48,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Price</th>
-                                        <th>Duration</th>
+                                        <th>Duration <span class="text-danger">(Days)</span></th>
                                         <th>Description</th>
                                         <th>Duration Type</th>
                                         <th>Status</th>

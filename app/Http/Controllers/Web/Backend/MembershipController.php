@@ -44,7 +44,7 @@ class MembershipController extends Controller
                         </a>
                     </div>';
                     })
-                    ->rawColumns(['action', 'status','description'])
+                    ->rawColumns(['action', 'status', 'description'])
                     ->make(true);
             }
             return view('backend.layout.membership.index');
@@ -62,8 +62,8 @@ class MembershipController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'description'=>'nullable',
-            'price' =>'required',
+            'description' => 'nullable',
+            'price' => 'required',
             'duration' => 'required|integer',
             'duration_type' => 'required|in:weeks,months,years'
         ]);
@@ -93,9 +93,9 @@ class MembershipController extends Controller
     public function update(Request $request, $id): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'name' =>'required|string|max:255',
-            'description'=>'nullable',
-            'price' =>'required',
+            'name' => 'required|string|max:255',
+            'description' => 'nullable',
+            'price' => 'required',
             'duration' => 'required|integer',
             'duration_type' => 'required|in:weeks,months,years'
         ]);
@@ -146,5 +146,4 @@ class MembershipController extends Controller
             ]);
         }
     }
-
 }
