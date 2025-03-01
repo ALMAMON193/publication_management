@@ -21,10 +21,7 @@ class MembershipController extends Controller
                 ->where('section', Section::MEMBERSHIP_CONTENT)
                 ->select('id', 'title')
                 ->get();
-            $data = $data->map(function ($item) {
-                $item->content = strip_tags($item->content);
-                return $item;
-            });
+
             return Helper::jsonResponse(true, 'Membership Data Fetch Successfully', 200, $data);
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -48,7 +45,10 @@ class MembershipController extends Controller
     public function GetMembership(): \Illuminate\Http\JsonResponse
     {
         try {
-            $data = Membership::where('status', 'active')->get();
+            $data = Membership::where('status', 'active')->get()->map(function ($item) {
+                $item->description = strip_tags($item->description); // Remove all HTML tags
+                return $item;
+            });;
             return Helper::jsonResponse(true, 'Membership Form Data Fetch Successfully', 200, $data  ?? []);
         } catch (Exception $e) {
             Log::error($e->getMessage());

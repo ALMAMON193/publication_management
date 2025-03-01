@@ -161,5 +161,32 @@
         text-decoration: none;
         text-align: left;
     }
+
+    .note-modal-content {
+        background: #fff;
+        background-clip: border-box;
+        border: 1px solid rgba(0, 0, 0, .2);
+        border-radius: 5px;
+        box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+        margin: 30px 20px;
+        outline: 0;
+        position: relative;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 3000;
+    }
+
+    .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
+    .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
+    .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-navbar {
+        z-index: 999;
+    }
+
+    .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
+    .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
+    .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-menu {
+        z-index: 999;
+    }
 </style>
 @stack('style')
