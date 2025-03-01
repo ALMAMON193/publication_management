@@ -237,6 +237,7 @@
                     </a>
                 </li>
             </ul>
+            <!--/ CMS Section -->
         </li>
 
         <!-- Settings Section -->
