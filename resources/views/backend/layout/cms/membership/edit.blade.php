@@ -3,15 +3,11 @@
 @section('title', 'Edit Membership Content')
 
 
-@push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <style>
-        .form-lable {
-            font-weight: bold;
-        }
-    </style>
-@endpush
+<style>
+    .form-lable {
+        font-weight: bold;
+    }
+</style>
 
 
 @section('content')
@@ -58,16 +54,11 @@
 @endsection
 
 @push('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
-
     <script>
-        $(document).ready(function() {
-            // Initialize Summernote on the content textarea
-            $('#content').summernote({
-                height: 150, // Set the height of the editor
-                tabsize: 2, // Set the tab size
-            });
+        $('#content').summernote({
+            placeholder: 'Enter description...',
+            tabsize: 2,
+            height: 100
         });
     </script>
 @endpush

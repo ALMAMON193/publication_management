@@ -2,15 +2,11 @@
 
 @section('title', 'Create Membership')
 
-@push('style')
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
-    <style>
-        .form-lable {
-            font-weight: bold;
-        }
-    </style>
-@endpush
+<style>
+    .form-lable {
+        font-weight: bold;
+    }
+</style>
 
 @section('content')
 
@@ -111,16 +107,11 @@
 @endsection
 
 @push('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
     <script>
-        $(document).ready(function() {
-            // Initialize Summernote on the content textarea
-            $('#description').summernote({
-                placeholder: 'Enter description...',
-                height: 150,
-                tabsize: 2,
-            });
+        $('#description').summernote({
+            placeholder: 'Enter description...',
+            tabsize: 2,
+            height: 100
         });
     </script>
 @endpush
