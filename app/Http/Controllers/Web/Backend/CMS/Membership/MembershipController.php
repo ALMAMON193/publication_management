@@ -48,7 +48,7 @@ class MembershipController extends Controller
                        </a>
                    </div>';
                 })
-                ->rawColumns(['action','content','title'])
+                ->rawColumns(['action', 'content', 'title'])
                 ->make();
         }
         return view('backend.layout.cms.membership.index');
@@ -61,8 +61,8 @@ class MembershipController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validatedData = $request->validate([
-            'title' =>'nullable',
-            'content' =>'nullable'
+            'title' => 'nullable',
+            'content' => 'nullable'
         ]);
         try {
             $validatedData['page'] = Page::MEMBERSHIP->value;
@@ -112,7 +112,7 @@ class MembershipController extends Controller
             // Fetch the current CMS record (if it exists)
             $cms = CMS::where('id', $id)->first();
             if (!$cms) {
-                return response()->json(['success'=>false, 'message'=>'Data could not be retrieved']);
+                return response()->json(['success' => false, 'message' => 'Data could not be retrieved']);
             }
             // Delete the CMS record from the database
             $cms->delete();
@@ -121,5 +121,4 @@ class MembershipController extends Controller
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
-
 }

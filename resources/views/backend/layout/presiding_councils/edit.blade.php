@@ -1,6 +1,6 @@
 @extends('backend.app')
 
-@section('title', 'Preseding Council')
+@section('title', 'Presiding Council')
 
 @push('style')
     <style>
@@ -51,7 +51,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Edit Preseding Council</h4>
+                        <h4 class="card-title">Edit Presiding Council</h4>
                         <div class="card mb-4">
                             <div class="card-body">
                                 <form action="{{ route('admin.presiding_councils.update', $data->id) }}" method="post"

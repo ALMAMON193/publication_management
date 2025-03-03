@@ -26,7 +26,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Update Presiding council Banner Content</h4>
+                        <h4 class="card-title">Update Presiding Council Banner Content</h4>
                         <form id="my-form" class="forms-sample"
                             action="{{ route('admin.cms.presiding.council.banner.update') }}" method="POST"
                             enctype="multipart/form-data">
@@ -56,7 +56,7 @@
                             {{-- Background Image Start --}}
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
-                                    <label class="form-label">Background Image</label>
+                                    <label class="form-label">Logo</label>
                                     <input type="file"
                                         data-default-file="{{ !empty($banner->background) && file_exists(public_path($banner->background)) ? url($banner->background) : url('backend/images/image-not.png') }}"
                                         class="dropify form-control @error('background') is-invalid @enderror"
@@ -70,7 +70,7 @@
                             {{--  Image Start --}}
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
-                                    <label class="form-label">Image</label>
+                                    <label class="form-label">Backeground</label>
                                     <input type="file"
                                         data-default-file="{{ !empty($banner->image) && file_exists(public_path($banner->image)) ? url($banner->image) : url('backend/images/image-not.png') }}"
                                         class="dropify form-control @error('image') is-invalid @enderror" name="image"

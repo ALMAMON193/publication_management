@@ -9,7 +9,6 @@ use App\Http\Controllers\Controller;
 use App\Models\CMS;
 use App\Models\Membership;
 use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class MembershipController extends Controller
