@@ -34,12 +34,12 @@
                             {{-- Title start --}}
                             <div class="form-group mb-3">
                                 <label class="form-lable">Title</label>
-                                <input type="text" class="form-control @error('title') is-invalid @enderror"
-                                    id="title" name="title" placeholder="Title Here..."
-                                    value="{{ old('title') ?? ($banner->title ?? '') }}">
+                                <textarea type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title"
+                                    placeholder="title Here...">{{ old('title') ?? ($banner->title ?? '') }}</textarea>
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+
                             </div>
                             {{-- Title End --}}
 
@@ -107,5 +107,16 @@
             });
 
         $('.dropify').dropify();
+    </script>
+
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#title'))
+            .then(editor => {
+                console.log('Editor was initialized', editor);
+            })
+            .catch(error => {
+                console.error(error.stack);
+            });
     </script>
 @endpush
