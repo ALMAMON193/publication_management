@@ -52,10 +52,13 @@
 
 @push('script')
     <script>
-        $('#content').summernote({
-            placeholder: 'Enter description...',
-            tabsize: 2,
-            height: 100
-        });
+        ClassicEditor
+            .create(document.querySelector('#content'))
+            .then(editor => {
+                console.log('Editor was initialized', editor);
+            })
+            .catch(error => {
+                console.error(error.stack);
+            });
     </script>
 @endpush
