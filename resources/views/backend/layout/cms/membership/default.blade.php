@@ -16,8 +16,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Membership Default Article content</h4>
-                        <form id="my-form" class="forms-sample" action="{{ route('admin.cms.membership.store') }}"
-                            method="POST" enctype="multipart/form-data">
+                        <form id="my-form" class="forms-sample"
+                            action="{{ route('admin.cms.default.membership.article.update') }}" method="POST"
+                            enctype="multipart/form-data">
                             @csrf
                             {{-- title why chose list start --}}
                             <div class="form-group mb-3">
