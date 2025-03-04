@@ -78,7 +78,7 @@ class MembershipController extends Controller
     {
         $data = CMS::where('page', Page::MEMBERSHIP->value)
             ->where('section', Section::MEMBERSHIP_CONTENT->value)
-            ->first();
+            ->find($id);
         return view('backend.layout.cms.membership.edit', compact('data'));
     }
     //update why chose up content point

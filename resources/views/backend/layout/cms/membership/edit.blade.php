@@ -9,7 +9,6 @@
     }
 </style>
 
-
 @section('content')
     <div class="content-wrapper">
         <div class="row">
@@ -27,7 +26,7 @@
                                 <label class="form-label">Title</label>
                                 <input type="text" class="form-control @error('title') is-invalid @enderror"
                                     id="title" name="title" placeholder="Title Here..."
-                                    value="{{ old('title') ?? $data->title }}">
+                                    value="{{ old('title') ?? ($data->title ?? '') }}">
                                 @error('title')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror

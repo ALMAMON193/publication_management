@@ -36,7 +36,7 @@ class AboutController extends Controller
                        </a>
                    </div>';
                 })
-                ->rawColumns(['action','image'])
+                ->rawColumns(['action', 'image'])
                 ->make();
         }
         $about = CMS::where('page', Page::HOME->value)->where('section', Section::HOME_ABOUT->value)->first();
@@ -49,7 +49,7 @@ class AboutController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validatedData = $request->validate([
-            'title' =>'nullable',
+            'title' => 'nullable',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         try {
@@ -75,7 +75,7 @@ class AboutController extends Controller
     {
         $data = CMS::where('page', Page::HOME->value)
             ->where('section', Section::HOME_ABOUT_ITEM->value)
-            ->first();
+            ->find($id);
         return view('backend.layout.cms.home.about.edit', compact('data'));
     }
     //update why chose up content point
@@ -117,7 +117,7 @@ class AboutController extends Controller
             // Fetch the current CMS record (if it exists)
             $cms = CMS::where('id', $id)->first();
             if (!$cms) {
-               return response()->json(['success'=>false, 'message'=>'Data could not be retrieved']);
+                return response()->json(['success' => false, 'message' => 'Data could not be retrieved']);
             }
             // Delete the CMS record from the database
             $cms->delete();
@@ -165,6 +165,4 @@ class AboutController extends Controller
             return redirect()->back()->with('t-error', $e->getMessage());
         }
     }
-
-
 }

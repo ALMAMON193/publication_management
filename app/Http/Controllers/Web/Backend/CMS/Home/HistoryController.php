@@ -78,7 +78,7 @@ class HistoryController extends Controller
     {
         $data = CMS::where('page', Page::HOME->value)
             ->where('section', Section::HOW_HISTORY_ITEM->value)
-            ->first();
+            ->find($id);
         return view('backend.layout.cms.home.history.edit', compact('data'));
     }
     //update why chose up content point

@@ -73,7 +73,7 @@ class HowToJoinTheGroupController extends Controller
     {
         $data = CMS::where('page', Page::HOME->value)
             ->where('section', Section::HOW_TO_THE_GROUP_LIST->value)
-            ->first();
+            ->find($id);
         return view('backend.layout.cms.home.join_group.edit', compact('data'));
     }
     //update why chose up content point
