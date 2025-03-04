@@ -176,17 +176,5 @@
         transform: translate(-50%, -50%);
         z-index: 3000;
     }
-
-    .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
-    .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-navbar,
-    .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-navbar {
-        z-index: 999;
-    }
-
-    .layout-navbar-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
-    .layout-menu-fixed body:not(.modal-open) .layout-content-navbar .layout-menu,
-    .layout-menu-fixed-offcanvas body:not(.modal-open) .layout-content-navbar .layout-menu {
-        z-index: 999;
-    }
 </style>
 @stack('style')
