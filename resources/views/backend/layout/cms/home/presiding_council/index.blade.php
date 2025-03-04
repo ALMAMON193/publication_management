@@ -89,15 +89,4 @@
 
         $('.dropify').dropify();
     </script>
-
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#content'))
-            .then(editor => {
-                console.log('Editor was initialized', editor);
-            })
-            .catch(error => {
-                console.error(error.stack);
-            });
-    </script>
 @endpush
