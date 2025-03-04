@@ -24,7 +24,7 @@
 
         .custom-cancel-button:hover {
             background-color: #f51808;
-        ;
+            ;
             /* Darker red */
         }
     </style>
@@ -44,15 +44,14 @@
                         <div class="table-responsive mt-4 p-4">
                             <table class="table table-hover" id="data-table">
                                 <thead>
-                                <tr>
-                                    <th>ID</th>
-                                   <th>Title</th>
-                                   <th>Content</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Title</th>
+                                        <th>Content</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -91,12 +90,20 @@
                     responsive: true,
                     serverSide: true,
 
+                    pageLength: 10,
+                    processing: true,
+                    responsive: true,
+                    serverSide: true,
+
                     language: {
                         processing: `<div class="text-center">
                             <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
                             <span class="visually-hidden">Loading...</span>
                           </div>
-                            </div>`
+                            </div>`,
+                        lengthMenu: '_MENU_',
+                        search: '',
+                        searchPlaceholder: 'Search..'
                     },
 
                     scroller: {
@@ -110,11 +117,11 @@
                     },
 
                     columns: [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
-                        orderable: false,
-                        searchable: false
-                    },
+                            data: 'DT_RowIndex',
+                            name: 'DT_RowIndex',
+                            orderable: false,
+                            searchable: false
+                        },
                         {
                             data: 'title',
                             name: 'title',
