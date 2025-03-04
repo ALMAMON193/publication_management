@@ -32,7 +32,7 @@ class MembershipController extends Controller
         try {
             $data = CMS::where('page', Page::MEMBERSHIP)
                 ->where('section', Section::MEMBERSHIP_DEFAULT_ARTICLE)
-                ->select('id', 'title', 'content', 'video')
+                ->select('id', 'title', 'content')
                 ->get();
             return Helper::jsonResponse(true, 'Membership Default Article Data Fetch Successfully', 200, $data);
         } catch (Exception $e) {
