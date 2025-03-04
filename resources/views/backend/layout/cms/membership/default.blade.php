@@ -51,18 +51,27 @@
 @endsection
 
 @push('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ckeditor5/41.3.1/ckeditor.min.js"></script>
-
-    <script type="text/javascript" src="https://jeremyfagis.github.io/dropify/dist/js/dropify.min.js"></script>
+    <!-- CKEditor Script -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
 
     <script>
         ClassicEditor
-            .create(document.querySelector('#content'))
+            .create(document.querySelector('#content'), {
+                toolbar: [
+                    'heading', '|', 'bold', 'italic', 'link', 'bulletedList',
+                    'numberedList', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo'
+                ],
+                mediaEmbed: {
+                    previewsInData: true, // Ensures the preview is shown inside CKEditor
+                    removeProviders: ['dailymotion', 'facebook', 'instagram', 'twitter', 'spotify',
+                        'googleMaps'] // Keep YouTube/Vimeo only
+                }
+            })
             .then(editor => {
-                console.log('Editor was initialized', editor);
+                console.log('Editor initialized successfully', editor);
             })
             .catch(error => {
-                console.error(error.stack);
+                console.error('There was an error initializing the editor:', error);
             });
     </script>
 @endpush
