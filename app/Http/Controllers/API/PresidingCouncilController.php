@@ -14,9 +14,6 @@ class PresidingCouncilController extends Controller
     {
         // Fetch presiding Council from API and return them
         $data = PresidingCouncil::all();
-        $data->each(function ($data) {
-            $data->bio = strip_tags($data->bio);
-        });
         $data->makeHidden(['status', 'updated_at', 'created_at']);
         return Helper::jsonResponse(true, 'Fetch Presiding Council Data', 200, $data);
     }
