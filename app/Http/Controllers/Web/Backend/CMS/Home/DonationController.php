@@ -23,7 +23,6 @@ class DonationController extends Controller
         $validatedData = $request->validate([
             'title' => 'nullable',
             'content' => 'nullable',
-            'btn_text' => 'nullable',
 
         ]);
 

@@ -52,7 +52,7 @@
                                 @enderror
                             </div>
                             {{-- Content End --}}
-                            <div class="form-group mb-3">
+                            {{-- <div class="form-group mb-3">
                                 <label class="form-label">Button Text</label>
                                 <input type="text" class="form-control @error('btn_text') is-invalid @enderror"
                                     id="btn_text" name="btn_text" placeholder="Button Text Here..."
@@ -60,7 +60,7 @@
                                 @error('btn_text')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
                             <button type="reset" class="btn btn-outline-secondary" onclick="resetForm()">Cancel
                             </button>

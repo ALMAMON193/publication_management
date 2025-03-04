@@ -48,7 +48,6 @@
                                         <th>ID</th>
                                         <th>Category</th>
                                         <th>Title</th>
-
                                         <th>Description</th>
                                         <th>Status</th>
                                         <th>Action</th>

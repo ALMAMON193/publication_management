@@ -4,14 +4,10 @@ namespace App\Http\Controllers\Web\Backend\CMS\Membership;
 
 use App\Enums\Page;
 use App\Enums\Section;
-use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\CMS;
-use App\Models\CorePublication;
 use Exception;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -22,7 +18,7 @@ class MembershipController extends Controller
         if ($request->ajax()) {
             $data = CMS::where('page', Page::MEMBERSHIP->value)
                 ->where('section', Section::MEMBERSHIP_CONTENT->value)
-                ->orderBy('created_at', 'asc') // Ascending order
+                ->orderBy('created_at', 'asc')
                 ->get();
 
             return DataTables::of($data)

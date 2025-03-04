@@ -34,7 +34,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label class="form-lable">Content</label>
-                                <textarea type="text" class="form-control @error('content') is-invalid @enderror" id="content" name="content"
+                                <textarea type="text" class="form-control @error('content') is-invalid @enderror" id="editContent" name="content"
                                     placeholder="Content Here...">{{ old('content') ?? ($data->content ?? '') }}</textarea>
                                 @error('content')
                                     <div class="invalid-feedback">{{ $message }}</div>
@@ -55,7 +55,7 @@
 
 @push('script')
     <script>
-        $('#content').summernote({
+        $('#editContent').summernote({
             placeholder: 'Enter description...',
             tabsize: 2,
             height: 100

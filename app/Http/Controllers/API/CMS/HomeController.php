@@ -19,7 +19,7 @@ class HomeController extends Controller
     {
         try {
             $data = CMS::where('page', Page::HOME)->where('section', Section::HOME_BANNER)->select('id', 'title', 'content', 'background', 'image')->first();
-            
+
             return Helper::jsonResponse(true, 'Banner Data Fetch Successfully', 200, $data ?? []);
         } catch (Exception $e) {
             Log::error($e->getMessage());
@@ -135,7 +135,7 @@ class HomeController extends Controller
         try {
             $content = CMS::where('page', Page::HOME)
                 ->where('section', Section::HOME_DONATION)
-                ->select('id', 'title', 'content', 'btn_text')
+                ->select('id', 'title', 'content')
                 ->first();
 
             return Helper::jsonResponse(true, 'Donation Data Fetch Successfully', 200, [
