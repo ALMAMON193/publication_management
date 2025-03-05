@@ -60,10 +60,10 @@
                                 @enderror
                             </div>
                             <!--duration-->
-                            {{-- <div class="form-group">
-                                <label for="duration" class="form-label">Duration (in days) <span
+                            <div class="form-group">
+                                <label for="duration" hidden class="form-label">Duration (in days) <span
                                         class="text-danger">*</span></label>
-                                <input type="number" class="form-control @error('duration') is-invalid @enderror"
+                                <input type="number" hidden class="form-control @error('duration') is-invalid @enderror"
                                     name="duration" id="duration" value="{{ old('duration', 0) }}"
                                     placeholder="Enter duration in days...">
                                 @error('duration')
@@ -90,7 +90,7 @@
                                             break;
                                     }
                                 }
-                            </script> --}}
+                            </script>
 
                             <div class="mt-2">
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>

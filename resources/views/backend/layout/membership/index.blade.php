@@ -48,9 +48,7 @@
                                         <th>ID</th>
                                         <th>Name</th>
                                         <th>Price</th>
-                                        <th>Duration <span class="text-danger">(Days)</span></th>
                                         <th>Description</th>
-                                        {{-- <th>Duration Type</th> --}}
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -137,24 +135,14 @@
                             orderable: true,
                             searchable: true
                         },
-                        {
-                            data: 'duration',
-                            name: 'duration',
-                            orderable: true,
-                            searchable: true
-                        },
+
                         {
                             data: 'description',
                             name: 'description',
                             orderable: true,
                             searchable: true
                         },
-                        // {
-                        //     data: 'duration_type',
-                        //     name: 'duration_type',
-                        //     orderable: true,
-                        //     searchable: true
-                        // },
+
                         {
                             data: 'status',
                             name: 'status',

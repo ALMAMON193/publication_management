@@ -24,6 +24,19 @@ class PublicationController extends Controller
         if (!$payment) {
             return Helper::jsonResponse(false, 'You have not a successful payment', 202);
         }
+        $check_endTime = UserMembership::where('user_id', $user->id)
+            ->where('end_date', '<', now())
+            ->latest('end_date')
+            ->first();
+
+        if ($check_endTime) {
+            return Helper::jsonResponse(false, 'Your membership has expired', 202);
+        }
+
+
+        if ($check_endTime) {
+            return Helper::jsonResponse(false, 'Your membership has expired', 202);
+        }
         //spastic user get a membership with payment
         $user_membership = UserMembership::where('user_id', $user->id)->where('status', 'active')->first();
         if (!$user_membership) {
