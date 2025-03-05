@@ -20,8 +20,8 @@ class ContactController extends Controller
     public function Contact(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
-            'email' => 'required|max:20|unique:contacts,email',
-            'subject' => 'required|max:120',
+            'email' => 'required|unique:contacts,email',
+            'subject' => 'required',
             'fname' => 'required',
             'lname' => 'required',
             'message' => 'nullable'
