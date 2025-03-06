@@ -135,7 +135,7 @@
                             orderable: true,
                             searchable: true,
                             render: function(data, type, row, meta) {
-                                return '$' + data;
+                                return '$  ' + data;
                             }
                         },
 

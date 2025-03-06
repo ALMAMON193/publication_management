@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Helpers\Helper;
-use App\Http\Controllers\Controller;
-use App\Models\Contact;
 use Exception;
+use App\Helpers\Helper;
+use App\Models\Contact;
+use App\Mail\ContactMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -20,12 +21,13 @@ class ContactController extends Controller
     public function Contact(Request $request): \Illuminate\Http\JsonResponse
     {
         $request->validate([
-            'email' => 'required|unique:contacts,email',
+            'email' => 'required|email|unique:contacts,email',
             'subject' => 'required',
             'fname' => 'required',
             'lname' => 'required',
             'message' => 'nullable'
         ]);
+
         try {
             $contactData = [
                 'email' => $request->email,
@@ -34,7 +36,13 @@ class ContactController extends Controller
                 'subject' => $request->subject,
                 'message' => $request->message,
             ];
+
+            // Store contact details in DB
             Contact::create($contactData);
+
+            // Send email to admin
+            Mail::to('mamunkhan14108@gmail.com')->send(new ContactMail($contactData));
+
             return Helper::jsonResponse(true, 'Contact created successfully', 200, $contactData);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, $e->getMessage(), 500);
