@@ -51,16 +51,11 @@
 @endsection
 
 @push('script')
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            ClassicEditor
-                .create(document.querySelector('#content'), {
-                    height: '500px'
-                })
-                .catch(error => {
-                    console.error(error);
-                });
+        $('#content').summernote({
+            placeholder: 'Enter description...',
+            tabsize: 2,
+            height: 100
         });
     </script>
 @endpush
