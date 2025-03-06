@@ -27,7 +27,6 @@ class ContactController extends Controller
             'lname' => 'required',
             'message' => 'nullable'
         ]);
-
         try {
             $contactData = [
                 'email' => $request->email,
@@ -42,7 +41,6 @@ class ContactController extends Controller
 
             // Send email to admin
             Mail::to('mamunkhan14108@gmail.com')->send(new ContactMail($contactData));
-
             return Helper::jsonResponse(true, 'Contact created successfully', 200, $contactData);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, $e->getMessage(), 500);

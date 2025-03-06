@@ -110,12 +110,19 @@
 @endsection
 
 @push('script')
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
     <script>
-        $('#description').summernote({
-            placeholder: 'Enter description...',
-            tabsize: 2,
-            height: 100
+        document.addEventListener('DOMContentLoaded', function() {
+            ClassicEditor
+                .create(document.querySelector('#description'), {
+                    height: '500px'
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         });
+    </script>
+    <script>
         // Document Preview
         function previewDocument(event) {
             const pdfPreview = document.getElementById('pdfPreview');
