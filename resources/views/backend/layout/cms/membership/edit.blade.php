@@ -20,7 +20,6 @@
                             action="{{ route('admin.cms.membership.update.list', $data->id) }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
-
                             <!-- Title Field -->
                             <div class="form-group mb-3">
                                 <label class="form-label">Title</label>

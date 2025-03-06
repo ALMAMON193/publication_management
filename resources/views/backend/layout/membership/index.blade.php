@@ -133,7 +133,10 @@
                             data: 'price',
                             name: 'price',
                             orderable: true,
-                            searchable: true
+                            searchable: true,
+                            render: function(data, type, row, meta) {
+                                return '$' + data;
+                            }
                         },
 
                         {

@@ -33,7 +33,6 @@ class PublicationController extends Controller
             return Helper::jsonResponse(false, 'Your membership has expired', 202);
         }
 
-
         if ($check_endTime) {
             return Helper::jsonResponse(false, 'Your membership has expired', 202);
         }
