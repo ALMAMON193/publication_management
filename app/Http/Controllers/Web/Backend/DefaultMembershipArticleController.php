@@ -39,10 +39,6 @@ class DefaultMembershipArticleController extends Controller
             $validatedData['page'] = Page::MEMBERSHIP->value;
             $validatedData['section'] = Section::MEMBERSHIP_DEFAULT_ARTICLE->value;
 
-            // Extract only the <iframe> and remove unnecessary wrappers
-            if (!empty($validatedData['content'])) {
-                $validatedData['content'] = preg_replace('/<figure[^>]*>|<\/figure>|<div[^>]*data-oembed-url[^>]*>|<\/div>/', '', $validatedData['content']);
-            }
 
             // Check if the CMS article exists and update or create it
             CMS::updateOrCreate(

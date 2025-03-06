@@ -51,27 +51,16 @@
 @endsection
 
 @push('script')
-    <!-- CKEditor Script -->
-    <script src="https://cdn.ckeditor.com/ckeditor5/41.3.1/classic/ckeditor.js"></script>
-
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.2.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('#content'), {
-                toolbar: [
-                    'heading', '|', 'bold', 'italic', 'link', 'bulletedList',
-                    'numberedList', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo'
-                ],
-                mediaEmbed: {
-                    previewsInData: true, // Ensures the preview is shown inside CKEditor
-                    removeProviders: ['dailymotion', 'facebook', 'instagram', 'twitter', 'spotify',
-                        'googleMaps'] // Keep YouTube/Vimeo only
-                }
-            })
-            .then(editor => {
-                console.log('Editor initialized successfully', editor);
-            })
-            .catch(error => {
-                console.error('There was an error initializing the editor:', error);
-            });
+        document.addEventListener('DOMContentLoaded', function() {
+            ClassicEditor
+                .create(document.querySelector('#content'), {
+                    height: '500px'
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        });
     </script>
 @endpush

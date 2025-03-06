@@ -25,5 +25,4 @@ class ContactController extends Controller
             return Helper::jsonResponse(false, 'Something went wrong', 500);
         }
     }
-
 }
