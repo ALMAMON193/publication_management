@@ -70,7 +70,6 @@ class PublicationController extends Controller
             return Helper::jsonResponse(false, 'User Not Found', 404);
         }
         $publication = Publication::find($publication_id);
-        $publication->description = strip_tags($publication->description);
         return Helper::jsonResponse(true, 'Publication Data Fetch Successfully', 200, $publication);
     }
 }
