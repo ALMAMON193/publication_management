@@ -54,16 +54,16 @@
                                     </div>
                                     <!--Duration Type-->
                                     <div class="form-group">
-                                        <label for="duration_type" class="form-label">Duration Type <span
+                                        <label for="duration_type" class="form-label">Membership Period<span
                                                 class="text-danger">*</span></label>
                                         <select class="form-control @error('duration_type') is-invalid @enderror"
                                             id="duration_type" name="duration_type" onchange="calculateDurationInDays()">
-                                            <option value="">Select duration type</option>
-                                            <option value="weeks" @if (old('duration_type', $membership->duration_type) == 'weeks') selected @endif>Weeks
+                                            <option value="">Select Membership Period</option>
+                                            <option value="weeks" @if (old('duration_type', $membership->duration_type) == 'weeks') selected @endif>Weekly
                                             </option>
-                                            <option value="months" @if (old('duration_type', $membership->duration_type) == 'months') selected @endif>Months
+                                            <option value="months" @if (old('duration_type', $membership->duration_type) == 'months') selected @endif>Monthly
                                             </option>
-                                            <option value="years" @if (old('duration_type', $membership->duration_type) == 'years') selected @endif>Years
+                                            <option value="years" @if (old('duration_type', $membership->duration_type) == 'years') selected @endif>Yearly
                                             </option>
                                         </select>
                                         @error('duration_type')
