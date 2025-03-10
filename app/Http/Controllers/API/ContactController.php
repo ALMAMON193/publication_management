@@ -7,6 +7,7 @@ use App\Helpers\Helper;
 use App\Models\Contact;
 use App\Mail\ContactMail;
 use Illuminate\Http\Request;
+use App\Mail\ContactUserMail;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
@@ -41,6 +42,7 @@ class ContactController extends Controller
 
             // Send email to admin
             Mail::to('mamunkhan14108@gmail.com')->send(new ContactMail($contactData));
+            Mail::to($request->email)->send(new ContactUserMail($contactData));
             return Helper::jsonResponse(true, 'Contact created successfully', 200, $contactData);
         } catch (Exception $e) {
             return Helper::jsonResponse(false, $e->getMessage(), 500);
