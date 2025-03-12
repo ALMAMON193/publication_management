@@ -41,7 +41,7 @@ class ContactController extends Controller
             Contact::create($contactData);
 
             // Send email to admin
-            // Mail::to('mamunkhan14108@gmail.com')->send(new ContactMail($contactData));
+            Mail::to('secretariat@maoiexperts.org')->send(new ContactMail($contactData));
             Mail::to($request->email)->send(new ContactUserMail($contactData));
             return Helper::jsonResponse(true, 'Contact created successfully', 200, $contactData);
         } catch (Exception $e) {

@@ -30,7 +30,11 @@ class PaypalController extends Controller
         // Fetch membership details
         $membership = (new Membership)->find($request->membership_id);
         if (!$membership) return Helper::jsonErrorResponse('Membership not found', 404);
-
+        // Check if the membership price is 0
+        if ($membership->price == 0) {
+            // Skip PayPal process if price is 0 and directly assign the membership
+            return $this->assignMembership($user, $membership);
+        }
         // Check if user already has an active membership
         if (UserMembership::where('user_id', $user->id)->where('membership_id', $membership->id)->where('status', 'active')->exists()) {
             return Helper::jsonErrorResponse('User already has this membership', 400);
@@ -91,6 +95,40 @@ class PaypalController extends Controller
         } catch (Exception $e) {
             Log::error('Payment failed: ' . $e->getMessage());
             return Helper::jsonErrorResponse('Payment failed', 400);
+        }
+    }
+
+    // Method to assign membership directly if price is 0
+    private function assignMembership($user, $membership)
+    {
+        DB::beginTransaction();
+        try {
+            // Directly create user membership without PayPal payment
+            UserMembership::create([
+                'user_id' => $user->id,
+                'membership_id' => $membership->id,
+                'start_date' => now(),
+                'end_date' => now()->addDays($membership->duration),
+                'status' => 'active',
+            ]);
+            //directly create Payment record without PayPal payment
+            Payment::create([
+                'user_id' => $user->id,
+                'membership_id' => $membership->id,
+                'amount' => $membership->price,
+                'currency' => 'USD',
+                'transaction_id' => substr(uniqid('txn_', true), 0, 16),
+                'status' => 'successful',
+            ]);
+
+            DB::commit();
+            return redirect('https://maoi-react-frontend.netlify.app/payment-success')->with([
+                'status' => true,
+                'message' => 'Payment successful',
+            ], 200);
+        } catch (Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Error occurred: ' . $e->getMessage()], 500);
         }
     }
 
