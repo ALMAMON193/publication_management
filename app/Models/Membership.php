@@ -27,4 +27,8 @@ class Membership extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public function users()
+    {
+        return $this->hasMany(UserMembership::class);
+    }
 }

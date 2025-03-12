@@ -18,7 +18,7 @@ return new class extends Migration
             $table->decimal('amount', 10, 2);
             $table->string('currency')->default('USD');
             $table->string('transaction_id')->unique();
-            $table->enum('status', ['pending', 'successful', 'failed'])->default('pending');
+            $table->enum('status', allowed: ['pending', 'successful', 'failed'])->default('pending');
             $table->timestamps();
         });
     }

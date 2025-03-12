@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\Backend\DefaultMembershipArticleController;
+use App\Http\Controllers\Web\Backend\FreeMembershipController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -212,6 +213,13 @@ Route::middleware('admin')->group(function () {
         Route::get('/privacy-policy', 'privacyPolicy')->name('privacy.policy.index');
         Route::post('/privacy-policy/update', 'updatePrivacyPolicy')->name('privacy.policy.update');
     })->middleware(['auth']);
+
+    Route::prefix('admin/free-membership')->name('admin.free-membership.')->controller(FreeMembershipController::class)->group(function () {
+        Route::get('/', action: 'index')->name('index');
+        Route::get('/create', action: 'create')->name('create');
+        Route::post('/store', 'store')->name('store');
+        Route::post('/delete/{id}', action: 'delete')->name('delete');
+    });
 });
 
 

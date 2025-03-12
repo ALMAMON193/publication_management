@@ -15,13 +15,13 @@
         </a>
         <!-- Menu toggle button for mobile view -->
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
-            <i class="bx bx-chevron-left bx-sm align-middle"></i>
+            <i class="align-middle bx bx-chevron-left bx-sm"></i>
         </a>
     </div>
     <!-- Dashboard Menu Section -->
     <li class="menu-header small text-uppercase"><span class="menu-header-text">Dashboard</span></li>
 
-    <ul class="menu-inner py-1">
+    <ul class="py-1 menu-inner">
         <!-- Dashboard Menu Item -->
         <li class="menu-item {{ Request::routeIs('admin.dashboard') ? 'active' : '' }}">
             <a class="menu-link" href="{{ route('admin.dashboard') }}">
@@ -96,6 +96,13 @@
             <a class="menu-link" href="{{ route('admin.contact-history.index') }}">
                 <i class="menu-icon tf-icons bx bx-envelope" style="color: #2A6880;"></i>
                 <span class="menu-title">Contact List</span>
+            </a>
+        </li>
+        <!-- Free membership -->
+        <li class="menu-item {{ Request::routeIs('admin.free-membership.*') ? 'active' : '' }}">
+            <a class="menu-link" href="{{ route('admin.free-membership.index') }}">
+                <i class="menu-icon tf-icons bx bx-gift" style="color: #2A6880;"></i>
+                <span class="menu-title">Free membership</span>
             </a>
         </li>
         <!-- CMS Section -->

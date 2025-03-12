@@ -26,11 +26,9 @@ class SystemSettingController extends Controller
     public function update(Request $request): \Illuminate\Http\RedirectResponse
     {
         $validator = Validator::make($request->all(), [
-            'system_name' => 'nullable',
-            'footer_description' => 'nullable',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
             'favicon' => 'nullable|mimes:jpeg,png,jpg,gif,svg,ico',
-            'copyright' => 'nullable',
+
         ]);
 
         if ($validator->fails()) {
@@ -39,7 +37,6 @@ class SystemSettingController extends Controller
 
         try {
             $setting = SystemSetting::firstOrNew();
-            $setting->fill($request->only(['system_name', 'footer_description', 'copyright']));
 
             // Upload files if present
             foreach (['favicon', 'logo'] as $fileType) {

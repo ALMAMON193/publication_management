@@ -8,7 +8,8 @@
         .ck-editor__editable[role="textbox"] {
             min-height: 150px;
         }
-        .dropify-wrapper .dropify-message span.file-icon{
+
+        .dropify-wrapper .dropify-message span.file-icon {
             font-size: 30px !important;
         }
     </style>
@@ -27,33 +28,8 @@
                             <form class="forms-sample" method="POST" action="{{ route('admin.system-settings.update') }}"
                                 enctype="multipart/form-data">
                                 @csrf
-                                <div class="form-group row mb-3">
-                                    <div class="col">
-                                        <label class="form-lable" for="basic-default-system_name">System Email:</label>
-                                        <input type="email"
-                                            class="form-control form-control-md border-left-0 @error('system_name') is-invalid @enderror"
-                                            placeholder="Email" id="basic-default-system_name" name="system_name" value="{{ $setting->system_name ?? '' }}">
-                                        @error('system_name')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
 
-                                    <div class="col">
-                                        <label>Copy Rights Text:</label>
-                                        <input type="text"
-                                            class="form-control form-control-md border-left-0 @error('copyright') is-invalid @enderror"
-                                            placeholder="Copy Rights" name="copyright"
-                                            value="{{ $setting->copyright ?? '' }}">
-                                        @error('copyright')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="form-group row mb-3">
+                                <div class="mb-3 form-group row">
                                     <div class="col">
                                         <label>Logo:</label>
                                         <input type="file"
@@ -79,15 +55,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="form-group mb-3">
-                                    <label>About System</label>
-                                    <textarea id="editor" class="form-control @error('footer_description') is-invalid @enderror" name="footer_description">{{ $setting->footer_description ?? '' }}</textarea>
-                                    @error('footer_description')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
+
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
                             </form>
                         </div>

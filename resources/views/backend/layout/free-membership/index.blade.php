@@ -39,7 +39,8 @@
                     <div class="card-body">
                         <div style="display: flex;justify-content: space-between;align-items: center;">
                             <h4 class="card-title">Membership History List</h4>
-
+                            <a href="{{ route('admin.free-membership.create') }}" class="btn btn-primary">Add
+                                Free-membership</a>
                         </div>
                         <div class="p-4 mt-4 table-responsive">
                             <table class="table table-hover" id="data-table">

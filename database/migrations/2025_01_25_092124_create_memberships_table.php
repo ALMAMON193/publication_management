@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->double('price');
             $table->integer('duration');
-            $table->enum('duration_type', ['weeks','months', 'years'])->default('months');
-            $table->enum('status',['active', 'inactive'])->default('active');
+            $table->enum('duration_type', ['weeks', 'months', 'years'])->default('months');
+            $table->enum('status', allowed: ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }

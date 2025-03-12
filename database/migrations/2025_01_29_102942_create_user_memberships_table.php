@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_memberships', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('membership_id')->constrained()->onDelete('cascade');
+            $table->foreignId(column: 'user_id')->constrained()->onDelete('cascade');
+            $table->foreignId(column: 'membership_id')->constrained()->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('status', ['pending', 'active', 'expired'])->default('pending');
