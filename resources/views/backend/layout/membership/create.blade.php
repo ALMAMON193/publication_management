@@ -1,0 +1,118 @@
+@extends('backend.app')
+
+@section('title', 'Create Membership')
+
+<style>
+    .form-lable {
+        font-weight: bold;
+    }
+</style>
+
+@section('content')
+
+    <div class="content-wrapper">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Create Membership</h4>
+                        <form action="{{ route('admin.membership.store') }}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form-group">
+                                <label for="document" class="form-label">Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                    name="name" id="name" value="{{ old('name') }}" placeholder="Enter name...">
+                                @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!--description-->
+                            <div class="form-group">
+                                <label for="description" class="form-label">Description</label>
+                                <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                                    rows="3">{{ old('description') }}</textarea>
+                                @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!--price-->
+                            <div class="form-group">
+                                <label for="price" class="form-label">Price <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control @error('price') is-invalid @enderror"
+                                    name="price" id="price" value="{{ old('price') }}" placeholder="Enter price...">
+                                @error('price')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!--Duration Type-->
+                            <div class="form-group">
+                                <label for="duration_type" class="form-label">Membership Period<span
+                                        class="text-danger">*</span></label>
+                                <select class="form-control @error('duration_type') is-invalid @enderror" id="duration_type"
+                                    name="duration_type" onchange="calculateDurationInDays()">
+                                    <option value="">Select membership period </option>
+                                    <option value="weeks" @if (old('duration_type') == 'weeks') selected @endif>Weekly</option>
+                                    <option value="months" @if (old('duration_type') == 'months') selected @endif>Monthly
+                                    </option>
+                                    <option value="years" @if (old('duration_type') == 'years') selected @endif>Yearly</option>
+                                </select>
+                                @error('duration_type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <!--duration-->
+                            <div class="form-group">
+                                <label for="duration" hidden class="form-label">Duration (in days) <span
+                                        class="text-danger">*</span></label>
+                                <input type="number" hidden class="form-control @error('duration') is-invalid @enderror"
+                                    name="duration" id="duration" value="{{ old('duration', 0) }}"
+                                    placeholder="Enter duration in days...">
+                                @error('duration')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+
+                            </div>
+                            <script>
+                                function calculateDurationInDays() {
+                                    let duration = document.getElementById('duration');
+                                    let durationType = document.getElementById('duration_type').value;
+                                    switch (durationType) {
+                                        case 'weeks':
+                                            duration.value = 7;
+                                            break;
+                                        case 'months':
+                                            duration.value = 30;
+                                            break;
+                                        case 'years':
+                                            duration.value = 365;
+                                            break;
+                                        default:
+                                            duration.value = 0;
+                                            break;
+                                    }
+                                }
+                            </script>
+
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-primary me-2">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary" onclick="resetForm()">Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@push('script')
+    <script>
+        $('#description').summernote({
+            placeholder: 'Enter description...',
+            tabsize: 2,
+            height: 100
+        });
+    </script>
+@endpush
