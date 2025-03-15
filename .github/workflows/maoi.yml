@@ -3,7 +3,7 @@ name: Deploy Project to Our Server
 on:
   push:
     branches:
-      - mamon
+      - master
 
 jobs:
   FTP-Deploy-Action:
@@ -18,13 +18,6 @@ jobs:
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
-          # server: ftp.softvencefsd.xyz
-          # username:  maoi@maoi-expert.softvencefsd.xyz
-          # password:  "QL#@N!?QB[.O"
-          # server: ftp.softvencefsd.xyz
-          # username:  maoi@maoi-expert.softvencefsd.xyz
-          # password:  "QL#@N!?QB[.O"
-
-          server: fusco.shared.1984.is
-          username: admin@maoiexperts.org
-          password: "m4Mk0Ju3Db4Yg9Ju7N"
+          server: ftp.softvencefsd.xyz
+          username: maoi@maoi-expert.softvencefsd.xyz
+          password: "QL#@N!?QB[.O"

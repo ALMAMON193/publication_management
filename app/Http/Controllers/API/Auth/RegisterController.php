@@ -8,11 +8,12 @@ use App\Models\User;
 use App\Mail\OtpMail;
 use App\Helpers\Helper;
 use App\Models\Payment;
+use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
+
 
 class RegisterController extends Controller
 {
@@ -37,7 +38,7 @@ class RegisterController extends Controller
             ]);
 
             // Send OTP email
-            Mail::to($user->email)->send(new OtpMail($otp, $user, 'Verify Your Email Address'));
+            Mail::to($user->email)->send(mailable: new VerifyEmail($otp, $user, 'Verify Your Email Address'));
             return response()->json([
                 'status' => true,
                 'message' => 'User successfully registered. Please verify your email to log in.',
@@ -139,7 +140,7 @@ class RegisterController extends Controller
             $user->otp = $newOtp;
             $user->otp_expires_at = $otpExpiresAt;
             $user->save();
-            Mail::to($user->email)->send(new OtpMail($newOtp, $user, 'Verify Your Email Address'));
+            Mail::to($user->email)->send(mailable: new VerifyEmail($newOtp, $user, 'Verify Your Email Address'));
 
             return Helper::jsonResponse(true, 'A new OTP has been sent to your email.', 200);
         } catch (Exception $e) {

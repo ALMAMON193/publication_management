@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h4>Free Membership details</h4>
                         <div class="row">
-                            {{ $errors }}
+
                             <div class="row">
                                 <form method="POST" action="{{ route('admin.free-membership.store') }}">
                                     @csrf
@@ -42,7 +42,7 @@
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}"
                                                     {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                                    {{ $user->name }}
+                                                    {{ $user->email }}
                                                 </option>
                                             @endforeach
                                         </select>

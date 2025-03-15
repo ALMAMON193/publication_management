@@ -49,7 +49,7 @@ class FreeMembershipController extends Controller
                     })
                     ->addColumn('action', function ($data) {
                         return '<div class="btn-group btn-group-sm" role="group">
-                           <a href="#" onclick="deleteAlert(' . $data->id . ')" class="btn btn-danger text-white" title="Delete">
+                           <a href="#" onclick="deleteAlert(' . $data->id . ')" class="text-white btn btn-danger" title="Delete">
                                <i class="fa fa-times"></i>
                            </a>
                        </div>';

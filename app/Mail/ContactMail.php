@@ -27,6 +27,6 @@ class ContactMail extends Mailable
     {
         return $this->subject('New Contact Form Submission')
             ->view('mail.contact')
-            ->with('contactData', $this->contactData);
+            ->with('contactData', value: $this->contactData);
     }
 }

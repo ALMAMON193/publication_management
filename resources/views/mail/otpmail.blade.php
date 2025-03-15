@@ -1,37 +1,69 @@
-<div style="font-family: Helvetica,Arial,sans-serif;min-width:1000px;overflow:auto;line-height:2">
-    <div style="margin: 50px auto; width: 70%; padding: 20px 0; font-family: Arial, sans-serif; color: #333;">
-        <div style="border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 15px;">
-            <a href="{{ url('/') }}"
-                style="font-size: 1.4em; color: #00466a; text-decoration: none; font-weight: 600;">
-                {{ htmlspecialchars($header_message) }}
-            </a>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Reset - International MAOI Expert Group</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .email-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .email-header {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .email-body {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .otp-code {
+            font-size: 20px;
+            font-weight: bold;
+            color: #007BFF;
+            margin: 20px 0;
+        }
+
+        .email-footer {
+            font-size: 14px;
+            color: #777;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="email-container">
+        <div class="email-header">{{ $header_message }}</div>
+        <div class="email-body">
+            <p>Dear {{ is_object($user) ? $user->name : 'User' }},</p>
+            <p>To reset your password, please use the following One-Time Password (OTP):</p>
+            <div class="otp-code">{{ $otp }}</div>
+            <p>This OTP is valid for 1 hour from the time of this email.</p>
+            <p>If you did not request a password reset, please disregard this email.</p>
         </div>
-
-        <p style="font-size: 1.1em; margin-bottom: 20px;">Dear {{ $user->name }},</p>
-
-        <p style="font-size: 1.1em; line-height: 1.6;">
-            Thank you for choosing <strong>{{ config('app.name') }}</strong>. To complete your sign-up process, please
-            use the following One Time Password One Time Passowrd (OTP).
-            This OTP is valid for 1 hour from the time of this email.
-        </p>
-
-        <h2
-            style="background: #00466a; margin: 20px auto; padding: 10px 20px; color: #fff; border-radius: 4px; font-size: 1.5em; text-align: center;">
-            {{ $otp }}
-        </h2>
-
-        <p style="font-size: 1.1em; line-height: 1.6;">If you did not request this One Time Password (OTP), please ignore
-            this email.</p>
-
-        <p style="font-size: 1.1em; line-height: 1.6;">Regards,</p>
-        <p style="font-size: 1.1em; font-weight: bold;">The {{ config('app.name') }} Team</p>
-
-        <hr style="border: none; border-top: 1px solid #eee; margin-top: 40px;">
-
-        <div style="float: right; padding: 8px 0; color: #aaa; font-size: 0.8em; line-height: 1; font-weight: 300;">
-            <p style="margin: 0;">{{ config('app.name') }} Inc.</p>
-            <p style="margin: 0;">All rights reserved. {{ date('Y') }}</p>
+        <div class="email-footer">
+            <p>Sincerely,</p>
+            <p>The International MAOI Expert Group</p>
         </div>
     </div>
+</body>
 
-</div>
+</html>

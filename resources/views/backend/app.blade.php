@@ -1,4 +1,6 @@
-
+<?php
+$setting = \App\Models\SystemSetting::first();
+?>
 <!DOCTYPE html>
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light-style layout-menu-fixed" dir="ltr"
@@ -12,12 +14,7 @@
     <title>@yield('title')</title>
 
     <meta name="description" content="" />
-    @if (!empty($setting->favicon))
-        <link rel="icon" type="image/x-icon" href="{{ asset($setting->favicon) }}">
-    @else
-        <link rel="icon" type="image/x-icon" href="{{ asset('backend.images.favicon') }}">
-    @endif
-
+    <link rel="icon" type="image/x-icon" href="{{ asset($setting->favicon ?? 'backend/images/favicon.png') }}">
     @include('backend.partials.style')
 
 </head>
