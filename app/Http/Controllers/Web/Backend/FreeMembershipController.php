@@ -36,7 +36,6 @@ class FreeMembershipController extends Controller
                     ->addColumn('membership_name', function ($data) {
                         return $data->membership->name;
                     })
-
                     ->addColumn('donation_amount', function ($data) {
                         return '$' . number_format($data->donation_amount, 2);
                     })
@@ -90,20 +89,9 @@ class FreeMembershipController extends Controller
         if ($userMembership) {
             return redirect()->route('admin.free-membership.index')->with('t-error', 'User already joined this membership');
         }
-
         $startDate = Carbon::now();
         $endDate = $startDate->copy();
-
-        if ($membership->duration_type == 'weeks') {
-
-            $endDate = $startDate->addWeeks($membership->duration);
-        } elseif ($membership->duration_type == 'months') {
-
-            $endDate = $startDate->addMonths($membership->duration);
-        } elseif ($membership->duration_type == 'years') {
-            $endDate = $startDate->addYears($membership->duration);
-        }
-
+        $endDate->addDays($membership->duration);
         Payment::create([
             'user_id' => $request->user_id,
             'membership_id' => $request->membership_id,
@@ -126,7 +114,7 @@ class FreeMembershipController extends Controller
             ->with('success', 'Membership and payment data stored successfully.');
     }
 
-    public function delete($id)
+    public function delete($id): ?\Illuminate\Http\JsonResponse
     {
         try {
             $data = UserMembership::find($id);

@@ -34,13 +34,6 @@
             color: #555;
         }
 
-        .otp-code {
-            font-size: 20px;
-            font-weight: bold;
-            color: #007BFF;
-            margin: 20px 0;
-        }
-
         .email-footer {
             font-size: 14px;
             color: #777;
