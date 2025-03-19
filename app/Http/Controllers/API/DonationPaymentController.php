@@ -15,7 +15,7 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 class DonationPaymentController extends Controller
 {
 
-    public function DonationPayment(Request $request)
+    public function DonationPayment(Request $request): \Illuminate\Http\JsonResponse
     {
         // Validate membership ID
         $request->validate([
