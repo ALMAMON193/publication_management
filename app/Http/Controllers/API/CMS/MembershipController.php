@@ -29,12 +29,6 @@ class MembershipController extends Controller
     }
     public function defaultArticle(): \Illuminate\Http\JsonResponse
     {
-        //check user auth
-        $user = auth()->user();
-        if (!$user) {
-            return Helper::jsonResponse(false, 'User not found', 404);
-        }
-
         try {
             $data = CMS::where('page', Page::MEMBERSHIP)
                 ->where('section', Section::MEMBERSHIP_DEFAULT_ARTICLE)

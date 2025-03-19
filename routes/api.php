@@ -36,6 +36,13 @@ Route::group(['middleware' => 'guest:api'], static function () {
     Route::get('/refresh-token', [LoginController::class, 'refreshToken']);
     Route::post('/logout', [LogoutController::class, 'logout']);
 
+    //Teacher Profile management
+    Route::get('/teacher/profile', [UserController::class, 'TeacherProfile']);
+    Route::post('/teacher/upload-avatar', [UserController::class, 'TeacherUploadAvatar']);
+    Route::post('/teacher/update-profile', [UserController::class, 'TeacherUpdateProfile']);
+    Route::delete('/teacher/delete-profile', [UserController::class, 'TeacherDeleteProfile']);
+    Route::post('/change-password', [ResetPasswordController::class, 'teacherPasswordManager']);
+
     //core Publications
     Route::get('/core-publications', [CorePublicationController::class, 'CorePublications']);
     Route::get('/presiding-council', [PresidingCouncilController::class, 'PresidingCouncil']);
@@ -73,18 +80,19 @@ Route::group(['middleware' => 'guest:api'], static function () {
     /* ============================CMS Contact Start ========================= */
     Route::get('/cms/membership/content', [\App\Http\Controllers\API\CMS\MembershipController::class, 'Content']);
     Route::get('/memberships', [\App\Http\Controllers\API\CMS\MembershipController::class, 'GetMembership']);
+    Route::get('/default-article', [\App\Http\Controllers\API\CMS\MembershipController::class, 'defaultArticle']);
 
     /* ============================CMS Key Contact End ========================= */
 
     /*==========================User Member ship all routes =============================*/
     Route::get('/user/membership/list', [\App\Http\Controllers\API\UserMembershipController::class, 'UserList']);
     Route::post('/user/membership/join', [\App\Http\Controllers\API\UserMembershipController::class, 'joinMembership']);
+    // Route::post('/user/membership/leave', [\App\Http\Controllers\API\UserMembershipController::class, 'LeaveMembership']);
     /*==========================User Member ship all routes End============================*/
 });
 
 //auth routes
 Route::group(['middleware' => 'auth:api'], static function () {
-    Route::get('/default-article', [\App\Http\Controllers\API\CMS\MembershipController::class, 'defaultArticle']);
 
     /**check user  */
     Route::get('/check/user', [UserController::class, 'checkUser']);
