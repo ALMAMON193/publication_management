@@ -4,12 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Reset - International MAOI Expert Group</title>
+
 </head>
 
 <body>
     <div class="email-container">
-        <div class="email-header">Password Reset – International MAOI Expert Group</div>
+        <div class="email-header" style="font-weight: bold">Password Reset – International MAOI Expert Group</div>
+        <br>
         <div class="email-body">
             <p>Dear {{ is_object($user) ? $user->name : 'User' }},</p>
             <p>

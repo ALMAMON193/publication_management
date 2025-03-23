@@ -26,24 +26,12 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        // Regenerate session to prevent session fixation attacks
         $request->session()->regenerate();
 
-        $user = $request->user();
+        $redirectRoute = $request->user()->role === 'admin' ? 'admin.dashboard' : 'dashboard';
 
-
-        if ($user->role === 'admin') {
-
-            return redirect()->route('admin.dashboard');
-        }
-
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        session()->flash('error', 'You must be an admin to access this area.');
-        return redirect()->route('login');
+        return redirect()->intended(route($redirectRoute));
     }
-
 
     /**
      * Destroy an authenticated session.

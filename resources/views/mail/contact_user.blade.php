@@ -4,13 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confirmation of Receipt - International MAOI Expert Group</title>
+
 
 </head>
 
 <body>
     <div class="email-container">
-        <div class="email-header">Confirmation of Receipt - International MAOI Expert Group</div>
+        <div class="email-header" style="font-weight: bold">Confirmation of Receipt - International MAOI Expert Group
+        </div>
+        <br>
         <div class="email-body">
             <p>Dear {{ $contactData['fname'] }} {{ $contactData['lname'] }},</p>
             <p>Thank you for reaching out to the International MAOI Expert Group. We have received your message:</p>

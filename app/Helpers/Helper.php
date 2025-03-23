@@ -14,20 +14,23 @@ class Helper
     //! File or Image Upload
     public static function fileUpload($file, string $folder, string $name): ?string
     {
-        if (!$file->isValid()) {
-            return null;
-        }
+        // Ensure that file exists in the request
+        if (!$file || !$file->isValid()) return null;
 
-        $imageName = Str::slug($name) . '.' . $file->extension();
-        $path      = public_path('uploads/' . $folder);
-        if (!file_exists($path)) {
-            if (!mkdir($path, 0755, true) && !is_dir($path)) {
-                throw new \RuntimeException(sprintf('Directory "%s" was not created', $path));
-            }
-        }
-        $file->move($path, $imageName);
-        return 'uploads/' . $folder . '/' . $imageName;
+        // Get the original file name
+        $originalName = $file->getClientOriginalName();
+        $path = public_path('uploads/' . $folder);
+
+        // Create directory if it doesn't exist
+        if (!file_exists($path)) mkdir($path, 0755, true);
+
+        // Move the file to the directory
+        $file->move($path, $originalName);
+
+        // Return the path of the uploaded file
+        return 'uploads/' . $folder . '/' . $originalName;
     }
+
 
 
     //! File or Image Delete

@@ -74,17 +74,26 @@ class PublicationController extends Controller
         ]);
 
         try {
-            $imageUrl = $videoUrl = $documentUrl = null;
-            if ($request->hasFile('image')) {
-                $imageUrl = Helper::fileUpload($request->file('image'), 'articles/images', 'image');
-            }
-
+            // Upload video
+            $videoUrl = null;
             if ($request->hasFile('video_url')) {
-                $videoUrl = Helper::fileUpload($request->file('video_url'), 'articles/video', 'video_url');
+                $randomString = $request->file('document')->getClientOriginalName();
+                $videoUrl = Helper::fileUpload($request->file('video_url'), 'articles/video', $randomString);
             }
 
+            //upload document
+            $documentUrl  = '';
             if ($request->hasFile('document')) {
-                $documentUrl = Helper::fileUpload($request->file('document'), 'articles/document', 'document');
+                 $randomString = $request->file('document')->getClientOriginalName();
+                $documentUrl = Helper::fileUpload($request->file('document'), 'articles/document', $randomString);
+            }
+
+
+            // Upload image
+            $imageUrl = null;
+            if ($request->hasFile('image')) {
+                $randomString = $request->file('document')->getClientOriginalName();
+                $imageUrl = Helper::fileUpload($request->file('image'), 'articles/images', $randomString);
             }
 
             $articles = new Publication();
@@ -92,6 +101,7 @@ class PublicationController extends Controller
             $articles->title = $request->title;
             $articles->video_url = $videoUrl;
             $articles->image = $imageUrl;
+
             $articles->document = $documentUrl;
             $articles->description = $request->description;
             $articles->save();
@@ -134,8 +144,8 @@ class PublicationController extends Controller
                     unlink(public_path($publication->image));
                 }
                 // Upload new image
-                $imageUrl = Helper::fileUpload($request->file('image'), 'articles/images', 'image');
-                $publication->image = $imageUrl;
+                $randomString = $request->file('document')->getClientOriginalName();
+                $publication->image = Helper::fileUpload($request->file('image'), 'articles/images', $randomString);
             }
 
             // Handle document update
@@ -145,8 +155,8 @@ class PublicationController extends Controller
                     unlink(public_path($publication->document));
                 }
                 // Upload new document
-                $documentUrl = Helper::fileUpload($request->file('document'), 'articles/document', 'document');
-                $publication->document = $documentUrl;
+                 $randomString = $request->file('document')->getClientOriginalName();
+                $publication->document = Helper::fileUpload($request->file('document'), 'articles/document', $randomString);
             }
 
             // Handle video update
@@ -156,7 +166,8 @@ class PublicationController extends Controller
                     unlink(public_path($publication->video_url));
                 }
                 // Upload new video
-                $videoUrl = Helper::fileUpload($request->file('video_url'), 'articles/video', 'video_url');
+                $randomString = $request->file('document')->getClientOriginalName();
+                $videoUrl = Helper::fileUpload($request->file('video_url'), 'articles/video', $randomString);
                 $publication->video_url = $videoUrl;
             }
 
