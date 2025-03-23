@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\Backend\DefaultMembershipArticleController;
 use App\Http\Controllers\Web\Backend\FreeMembershipController;
+use App\Http\Controllers\Web\Backend\SystemSettingController;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,6 @@ use App\Http\Controllers\API\DonationWithStripeController;
 use App\Http\Controllers\Web\Backend\MembershipController;
 use App\Http\Controllers\Web\Backend\KeyDocumentController;
 use App\Http\Controllers\Web\Backend\PublicationController;
-use App\Http\Controllers\Web\Backend\SystemSettingController;
 use App\Http\Controllers\Web\Backend\CMS\Home\AboutController;
 use App\Http\Controllers\Web\Backend\CMS\Home\BannerController;
 use App\Http\Controllers\Web\Backend\CorePublicationController;
@@ -49,6 +49,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/admin/profile', [SystemSettingController::class, 'profileIndex'])->name('admin.profile');
     Route::post('/admin/profile', [SystemSettingController::class, 'profileUpdate'])->name('admin.profile.update');
     Route::post('/admin/password', [SystemSettingController::class, 'passwordUpdate'])->name('admin.password.update');
+    Route::get('/notify/user/expired-membership', [SystemSettingController::class, 'ExpiredMembership'])->name('admin.notify.expired-membership');
 
 
     Route::get('/admin/paypal-settings', [SystemSettingController::class, 'PaypalSetting'])->name('admin.paypal-settings');

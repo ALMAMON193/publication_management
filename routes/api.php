@@ -80,7 +80,6 @@ Route::group(['middleware' => 'guest:api'], static function () {
     /* ============================CMS Contact Start ========================= */
     Route::get('/cms/membership/content', [\App\Http\Controllers\API\CMS\MembershipController::class, 'Content']);
     Route::get('/memberships', [\App\Http\Controllers\API\CMS\MembershipController::class, 'GetMembership']);
-    Route::get('/default-article', [\App\Http\Controllers\API\CMS\MembershipController::class, 'defaultArticle']);
 
     /* ============================CMS Key Contact End ========================= */
 
@@ -93,7 +92,7 @@ Route::group(['middleware' => 'guest:api'], static function () {
 
 //auth routes
 Route::group(['middleware' => 'auth:api'], static function () {
-
+    Route::get('/default-article', [\App\Http\Controllers\API\CMS\MembershipController::class, 'defaultArticle']);
     /**check user  */
     Route::get('/check/user', [UserController::class, 'checkUser']);
     /**============================================Publication ==========================*/

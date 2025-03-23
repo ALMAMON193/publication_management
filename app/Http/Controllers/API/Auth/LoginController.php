@@ -7,6 +7,8 @@ use App\Models\User;
 use App\Helpers\Helper;
 use App\Models\Payment;
 use Illuminate\Http\Request;
+use App\Models\UserMembership;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +44,11 @@ class LoginController extends Controller
             if (!$user->email_verified_at) {
                 return Helper::jsonErrorResponse('Email not verified. Please verify your email before logging in.', 403);
             }
+            $userMembership = UserMembership::where('user_id', $user->id)->latest()->first();
+            $membershipExpiredStatus = true; // Default to true if no membership is found
+            if ($userMembership) {
+                $membershipExpiredStatus = Carbon::now()->isAfter($userMembership->end_date) ? true : false;
+            }
 
             // Generate token if email is verified and role matches
             $token = auth('api')->login($user);
@@ -53,13 +60,14 @@ class LoginController extends Controller
                 'token_type' => 'bearer',
                 'token'      => $token,
                 'data'       => [
-                    'id'          => $user->id,
-                    'name'        => $user->name,
-                    'email'       => $user->email,
-                    'phone'       => $user->phone,
-                    'avatar'      => $user->avatar,
-                    'is_verified' => $user->is_verified,
-                    'payment_status' => Payment::where('user_id', $user->id)->latest()->first() ? true : false,
+                    'id'                  => $user->id,
+                    'name'                => $user->name,
+                    'email'               => $user->email,
+                    'phone'               => $user->phone,
+                    'avatar'              => $user->avatar,
+                    'is_verified'         => $user->is_verified,
+                    'payment_status'      => Payment::where('user_id', $user->id)->latest()->first() ? true : false,
+                    'membership_expired_status' => $membershipExpiredStatus,
                 ],
             ], 200);
         } catch (Exception $e) {

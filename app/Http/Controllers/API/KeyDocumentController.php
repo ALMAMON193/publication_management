@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class KeyDocumentController extends Controller
 {
-    function KeyDocument(): \Illuminate\Http\JsonResponse
+    public function KeyDocument(): \Illuminate\Http\JsonResponse
     {
         // Fetch Core Publications from API and return them
         $data = KeyDocument::paginate(5);

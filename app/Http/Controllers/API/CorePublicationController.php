@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class CorePublicationController extends Controller
 {
-    function CorePublications(): \Illuminate\Http\JsonResponse
+    public function CorePublications(): \Illuminate\Http\JsonResponse
     {
         // Fetch Core Publications from API and return them
         $data = CorePublication::all();

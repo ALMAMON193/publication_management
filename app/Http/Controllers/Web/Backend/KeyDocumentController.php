@@ -65,7 +65,7 @@ class KeyDocumentController extends Controller
             //upload document
             $documentUrl  = '';
             if ($request->hasFile('document')) {
-                $randomString = Str::random(10);
+                $randomString = $request->file('document')->getClientOriginalName();
                 $documentUrl = Helper::fileUpload($request->file('document'), 'key_document', $randomString);
             }
             $keyDocument = new KeyDocument();
@@ -99,7 +99,7 @@ class KeyDocumentController extends Controller
             }
            // Handle the new document upload
             if ($request->hasFile('document')) {
-                $randomString = Str::random(10);
+                $randomString = $request->file('document')->getClientOriginalName();
                 $documentUrl = Helper::fileUpload($request->file('document'), 'key_document', $randomString);
                 $keyDocument->document = $documentUrl;
             }

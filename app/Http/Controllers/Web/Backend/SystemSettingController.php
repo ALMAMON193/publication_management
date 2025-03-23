@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Web\Backend;
 
+use App\Mail\MembershipExpirationNotification;
+use App\Models\UserMembership;
+use Carbon\Carbon;
 use Exception;
 use App\Models\User;
 use App\Helpers\Helper;
@@ -11,8 +14,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Yajra\DataTables\Facades\DataTables;
 
 class SystemSettingController extends Controller
 {
@@ -199,5 +205,54 @@ class SystemSettingController extends Controller
             File::put(base_path('.env'), $envContent);
         }
         return redirect()->back()->with('t-success', 'Updated successfully');
+    }
+
+    //admin notify membership
+
+
+    public function ExpiredMembership(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+                $data = UserMembership::with('user')
+                    ->whereDate('end_date', '>', Carbon::today())
+                    ->get();
+                return DataTables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('user_email', function ($data) {
+                        return $data->user->email;
+                    })
+                    ->addColumn('membership_name', function ($data) {
+                        return $data->membership->name;
+                    })
+                    ->addColumn('remaining_days', function ($data) {
+                        $endDate = Carbon::parse($data->end_date);
+                        $today = Carbon::today();
+                        $remainingDays = $today->diffInDays($endDate, false);
+                        return $remainingDays > 0 ? $remainingDays . ' days remaining' : 'Expired';
+                    })
+                    ->addColumn('action', function ($data) {
+                        return '<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                               <button class="btn btn-primary text-white notify-btn" title="Notify" data-id="' . $data->id . '">
+                            Notify
+                        </button>
+                    </div>';
+                    })
+                    ->rawColumns(['action', 'created_at', 'remaining_days','membership_name'])
+                    ->make(true);
+            }
+            return view('backend.layout.notify_expired_membership');
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => 'An error occurred while processing your request.'], 500);
+        }
+    }
+    public function notify(Request $request,$id): \Illuminate\Http\JsonResponse
+    {
+        $membership = UserMembership::with('user')->findOrFail($id);
+        $today = Carbon::today();
+        // Send the email with the $today variable
+        Mail::to($membership->user->email)->send(new MembershipExpirationNotification($membership, $today));
+        return response()->json(['success' => true, 'message' => 'Send Message Successfully']);
     }
 }

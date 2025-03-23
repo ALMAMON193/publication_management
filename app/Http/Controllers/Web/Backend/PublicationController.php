@@ -25,11 +25,6 @@ class PublicationController extends Controller
                     ->addColumn('category', function ($data) {
                         return Category::find($data->category_id)->name ?? 'N/A';
                     })
-                    //                    ->addColumn('image', function ($data) {
-                    //                        $image = $data->image;
-                    //                        $url = asset($image);
-                    //                        return '<img src="' . $url . '" alt="image" width="100px" height="100px" style="margin-left:20px;">' ?? 'N/A';
-                    //                    })
 
                     //limit description to 100 characters
                     ->addColumn('description', function ($data) {

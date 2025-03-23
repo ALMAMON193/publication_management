@@ -52,14 +52,13 @@ class DonationHistoryController extends Controller
         }
     }
 
-    public function delete($id)
+    public function delete($id): ?\Illuminate\Http\JsonResponse
     {
         try {
             $data = DonationPayment::find($id);
             if (!$data) {
                 return response()->json(['success' => false, 'message' => 'Donation not found.'], 404);
             }
-
             // Delete the user donation
             $data->delete();
 

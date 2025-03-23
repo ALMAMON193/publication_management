@@ -1,6 +1,6 @@
 @extends('backend.app')
 
-@section('title', 'Membership History')
+@section('title', 'Notify membership Expired')
 
 @push('style')
     <style>
@@ -24,7 +24,7 @@
 
         .custom-cancel-button:hover {
             background-color: #f51808;
-            ;
+        ;
             /* Darker red */
         }
     </style>
@@ -38,25 +38,20 @@
                 <div class="card">
                     <div class="card-body">
                         <div style="display: flex;justify-content: space-between;align-items: center;">
-                            <h4 class="card-title">Membership History List</h4>
-
+                            <h4 class="card-title">Notify Membership Expired List</h4>
                         </div>
-                        <div class="p-4 mt-4 table-responsive">
+                        <div class="table-responsive mt-4 p-4">
                             <table class="table table-hover" id="data-table">
                                 <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>User</th>
-                                        <th>Email</th>
-                                        <th>Membership</th>
-                                        <th>Start Date</th>
-                                        <th>End Date</th>
-                                        <th>Status</th>
-                                        <th>Action</th>
-                                    </tr>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Membership Name</th>
+                                    <th>User Email</th>
+                                    <th>Remaining Days</th>
+                                    <th>Action</th>
+                                </tr>
                                 </thead>
                                 <tbody>
-
                                 </tbody>
                             </table>
                         </div>
@@ -84,6 +79,7 @@
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 }
             });
+
             if (!$.fn.DataTable.isDataTable('#data-table')) {
                 let dTable = $('#data-table').DataTable({
                     order: [],
@@ -91,43 +87,39 @@
                         [10, 25, 50, 100, 200, 500, -1],
                         ["10", "25", "50", "100", "200", "500", "All"]
                     ],
-
                     pageLength: 10,
                     processing: true,
                     responsive: true,
                     serverSide: true,
-
                     language: {
                         processing: `<div class="text-center">
-                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-                            <span class="visually-hidden">Loading...</span>
-                          </div>
-                            </div>`,
+                    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>`,
                         lengthMenu: '_MENU_',
                         search: '',
                         searchPlaceholder: 'Search..'
                     },
-
-
                     scroller: {
                         loadingIndicator: false
                     },
                     pagingType: "full_numbers",
                     dom: "<'row justify-content-between table-topbar'<'col-md-2 col-sm-4 px-0'l><'col-md-2 col-sm-4 px-0'f>>tipr",
                     ajax: {
-                        url: "{{ route('admin.membership-history.index') }}",
+                        url: "{{ route('admin.notify.expired-membership') }}",
                         type: "get",
                     },
-
-                    columns: [{
+                    columns: [
+                        {
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex',
                             orderable: false,
                             searchable: false
                         },
                         {
-                            data: 'user_name',
-                            name: 'user_name',
+                            data: 'membership_name',
+                            name: 'membership_name',
                             orderable: true,
                             searchable: true
                         },
@@ -138,28 +130,10 @@
                             searchable: true
                         },
                         {
-                            data: 'membership_name',
-                            name: 'membership_name',
+                            data: 'remaining_days',
+                            name: 'remaining_days',
                             orderable: true,
                             searchable: true
-                        },
-                        {
-                            data: 'start_date',
-                            name: 'start_date',
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: 'end_date',
-                            name: 'end_date',
-                            orderable: true,
-                            searchable: true
-                        },
-                        {
-                            data: 'status',
-                            name: 'status',
-                            orderable: false,
-                            searchable: false
                         },
                         {
                             data: 'action',
@@ -169,80 +143,72 @@
                         },
                     ],
                 });
-
-                new DataTable('#example', {
-                    responsive: true
-                });
             }
         });
 
-
-
-        // sweet alert something went wrong
-        const errorAlert = () => {
+        //clicked the button expired membership
+        $(document).on('click', '.notify-btn', function () {
+            var membershipId = $(this).data('id');
+            // Show confirmation dialog before proceeding
             Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-                footer: '<a href="#">Why do I have this issue?</a>'
-            });
-        }
-
-        // Sweet alert Delete confirm
-        const deleteAlert = (id) => {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
+                title: 'Are you sure?',
+                text: 'Do you want to notify this user about their membership?',
+                icon: 'question',
                 showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!"
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, notify!'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    deleteAuction(id);
+                    // Proceed with AJAX request
+                    $.ajax({
+                        url: '/notify-membership/' + membershipId,
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: (response) => {
+                            console.log(response);
+
+                            // Reload DataTable on success
+                            $('#data-table').DataTable().ajax.reload();
+
+                            // Show success message
+                            if (response.success === true) {
+                                Swal.fire({
+                                    title: 'Notified!',
+                                    text: 'The user has been notified successfully.',
+                                    icon: 'success'
+                                });
+                            } else if (response.errors) {
+                                // Show error message if there are validation errors
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: response.errors[0],
+                                    icon: 'error'
+                                });
+                            } else {
+                                // Show generic error message
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: response.message || 'Something went wrong.',
+                                    icon: 'error'
+                                });
+                            }
+                        },
+                        error: (error) => {
+                            console.log(error);
+
+                            // Show error message for AJAX failure
+                            Swal.fire({
+                                title: 'Error!',
+                                text: 'Failed to notify the user. Please try again.',
+                                icon: 'error'
+                            });
+                        }
+                    });
                 }
             });
-        }
-
-        // deleting an auction
-        const deleteAuction = (id) => {
-            try {
-                let url = '{{ route('admin.membership-hiostory.delete', ':id') }}';
-                let csrfToken = `{{ csrf_token() }}`;
-                $.ajax({
-                    type: "DELETE",
-                    url: url.replace(':id', id),
-                    headers: {
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    success: (response) => {
-                        console.log(response);
-                        // Reload DataTable
-                        $('#data-table').DataTable().ajax.reload();
-                        if (response.success === true) {
-                            Swal.fire({
-                                title: "Deleted!",
-                                text: "Membership has been deleted.",
-                                icon: "success"
-                            });
-                        } else if (response.errors) {
-                            console.log(response.errors[0])
-                            errorAlert()
-                        } else {
-                            toastr.success(resp.message);
-                            console.log(response.message);
-                            errorAlert()
-                        }
-                    },
-                    error: (error) => {
-                        console.log(error.message);
-                        errorAlert()
-                    }
-                })
-            } catch (e) {
-                console.log(e)
-            }
-        }
+        });
     </script>
 @endpush

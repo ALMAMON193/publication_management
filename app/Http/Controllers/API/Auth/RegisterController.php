@@ -10,6 +10,7 @@ use App\Helpers\Helper;
 use App\Models\Payment;
 use App\Mail\VerifyEmail;
 use Illuminate\Http\Request;
+use App\Models\UserMembership;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -74,6 +75,11 @@ class RegisterController extends Controller
             if (Carbon::parse($user->otp_expires_at)->isPast()) {
                 return Helper::jsonErrorResponse('OTP has expired. Please request a new OTP.', 422);
             }
+            $userMembership = UserMembership::where('user_id', $user->id)->latest()->first();
+            $membershipExpiredStatus = true;
+            if ($userMembership) {
+                $membershipExpiredStatus = Carbon::now()->isAfter($userMembership->end_date) ? true : false;
+            }
 
             // Verify the email
             $user->email_verified_at = now();
@@ -112,6 +118,7 @@ class RegisterController extends Controller
                     'avatar'        => $user->avatar,
                     'is_verified'   => $user->is_verified,
                     'payment_status' => Payment::where('user_id', $user->id)->latest()->first() ? true : false,
+                    'membership_expired_status' => $membershipExpiredStatus,
                 ],
             ], 200);
         } catch (Exception $e) {

@@ -105,6 +105,13 @@
                 <span class="menu-title">Free membership</span>
             </a>
         </li>
+        <!-- Notify expired membership  -->
+        <li class="menu-item {{ Request::routeIs('admin.notify.expired-membership*') ? 'active' : '' }}">
+            <a class="menu-link" href="{{ route('admin.notify.expired-membership') }}">
+                <i class="menu-icon tf-icons bx bx-gift" style="color: #2A6880;"></i>
+                <span class="menu-title">Notify Expired Membership</span>
+            </a>
+        </li>
         <!-- CMS Section -->
         <li class="menu-item {{ request()->routeIs('admin.cms.*') ? 'active open' : '' }}">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
